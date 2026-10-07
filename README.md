@@ -42,6 +42,7 @@ Tulpa 是面向 Windows 的个人通信工作台。聊天和资料保存在本�
 | QQ 扩展 | 连接 OneBot 后按需读公告、精华和群文件；批准回复发送；按账号权限管理群 |
 | 持续群聊与表情包（MCP） | 外部 Agent 根据人格持续接收 OneBot 群消息，按授权看图、发送/收藏表情；可随时停止，与历史调查分开运行 |
 | 外部 Agent / MCP | 让 Codex 等客户端直接查询授权的聊天与文件，复用本地检索；无需 Tulpa 模型配置；可为连接持续授权 QQ 发送和群管理 |
+| ASMRTranslator 群助手（完整版） | 用项目 README、前后端代码和所选群文档自动技术答疑、收集问题；每日固定5元模型额度，可停止，见 [使用说明](doc/ASMR_SUPPORT.md) |
 
 完整行为和限制见 [FEATURES.md](doc/FEATURES.md)。
 
@@ -54,6 +55,8 @@ Tulpa 是面向 Windows 的个人通信工作台。聊天和资料保存在本�
 ## 发送和群管理
 
 **帮我回复不会自动发送。** 底部面板先显示草稿，用户可以编辑；点击 **批准** 后才发送当前文字，点击 **拒绝** 不发送。当前支持 QQ 文本发送，微信仅支持草稿和复制。
+
+**ASMRTranslator 群助手是独立的自动回复入口。** 在完整版选择目标群并主动启动后，答复经过程序检查与独立 DeepSeek 安全审核，通过后自动发送，无需人工逐条审批；审核失败默认拦截，Bug 分析先写入本机 SQLite。答复和审核共用每日固定人民币5元额度，界面只显示额度，可随时停止。它复用已有 DeepSeek 与 OneBot 设置，在线答疑不直接发送本地源码索引，使用范围和保密限制见 [群助手说明](doc/ASMR_SUPPORT.md)。
 
 群管理默认每项操作询问，也可为当前普通对话明确选择“默认允许”或“默认拒绝”。权限检查、目标确认及操作记录始终保留。工作区和关注卡不会在后台执行群管理写操作。
 
@@ -97,6 +100,12 @@ cd Tulpa
 | QQ 扩展 | [回复助手](doc/REPLY_COPILOT.md)、[群管理](doc/GROUP_MANAGEMENT.md)、[OneBot 教程](doc/SNOWLUMA_SETUP.md) |
 | 外部 Agent 接入 | [MCP 教程与实现边界](doc/MCP.md)、[轻量版](doc/MCP_LITE.md)、[DeepSeek Harness](doc/DEEPSEEK_MCP.md) |
 | 开发与验证 | [贡献指南](doc/CONTRIBUTING.md)、[验证说明](doc/VALIDATION.md)、[安全报告](doc/SECURITY.md) |
+
+## Linux 群助手部署
+
+仅部署 ASMRTranslator QQ 群助手时，请使用 [Linux 部署说明](doc/LINUX_DEPLOY.md) 和 `bash scripts/deploy-linux.sh install`，无需安装 Windows 桌面读取器。
+
+纯命令管理入口：`bash scripts/support.sh --help`，支持私有 GitHub 仓库绑定 / 更新、隐藏输入密钥、群列表、自动回复启停、Bug 和审核记录。
 
 ## 开源许可
 

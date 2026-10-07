@@ -235,3 +235,10 @@ html .vision-toggle[aria-checked=true] .vision-dot {background:#fff}
 }
 @media(max-height:720px) {html #sidebar{padding-top:12px}.sidebar-head{padding-bottom:16px}html .nav-button{padding-top:8px;padding-bottom:8px}.history-label{padding-top:16px}#welcome{padding-top:28px;padding-bottom:28px}html .suggestions{margin-top:26px}}
 @media(prefers-reduced-motion:reduce) {button{transition:none}}
+#support-dialog .desktop-config-body > button,
+#support-dialog details > button {border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 6px 6px 0;}
+#support-dialog textarea {display:block;box-sizing:border-box;width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);font:inherit;resize:vertical;}
+#support-dialog #support-budget {font-weight:600;font-variant-numeric:tabular-nums;}
+#support-dialog #support-bugs section {border-bottom:1px solid var(--line);padding-bottom:12px;}
+#support-dialog #support-bugs small {display:block;margin-bottom:8px;overflow-wrap:anywhere;}
+#support-dialog #support-recent p {overflow-wrap:anywhere;}

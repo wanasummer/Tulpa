@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tulpa · 群反馈看板</title>
+  <link rel="icon" href="/assets/bug-dashboard.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/bug-dashboard.css">
+  <script src="/assets/bug-dashboard.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">TULPA / FEEDBACK</p><h1>群反馈看板<span class="dot"></span></h1><p class="subtitle">把群里的问题，放在一处看清楚。</p></div><div class="live"><span id="sync" role="status">正在读取…</span><button id="refresh" type="button">刷新数据 ↻</button></div></header>
+    <p id="error" role="alert" hidden></p>
+    <section class="metrics" aria-label="反馈统计">
+      <article class="primary"><p>反馈总数</p><strong id="total">—</strong><small>数据库中的全部反馈记录</small></article>
+      <article><p>未解决</p><strong id="open">—</strong><small>含待确认、待补充、处理中等状态</small></article>
+      <article><p>已解决</p><strong id="resolved">—</strong><small>状态标记为已解决的记录</small></article>
+      <article><p>反馈群数</p><strong id="groups-count">—</strong><small>有反馈记录的 QQ 群</small></article>
+    </section>
+    <section class="overview"><article class="panel"><h2>处理状态</h2><div id="statuses" class="bars"></div></article><article class="panel"><h2>来源群</h2><div id="groups" class="bars"></div></article><article class="panel"><h2>每日反馈量</h2><div id="days" class="bars"></div><p class="note">最近 14 个有记录的日期 · 北京时间</p></article></section>
+    <section class="panel records"><div class="section-head"><h2>反馈明细</h2><span id="shown" class="note"></span></div><p class="note">按最新记录排序，点击展开问题详情。</p><div id="bugs" aria-live="polite"><p class="empty">正在读取反馈记录…</p></div></section>
+    <footer><span>每 30 秒自动更新 · 删除需确认</span><span>记录来自群助手汇总，尚未经人工核实</span></footer>
+  </main>
+  <dialog id="delete-dialog" aria-labelledby="delete-heading" aria-describedby="delete-description">
+    <h2 id="delete-heading">确认删除这条反馈？</h2>
+    <p id="delete-title"></p>
+    <p id="delete-description">将从数据库中删除这条反馈，并更新统计。此操作无法撤销，群里的原始消息会保留。</p>
+    <p id="delete-error" role="alert" hidden></p>
+    <div class="dialog-actions"><button id="delete-cancel" type="button" autofocus>取消</button><button id="delete-confirm" type="button" class="delete-button">确认删除</button></div>
+  </dialog>
+</body></html>

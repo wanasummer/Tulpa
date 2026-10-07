@@ -38,6 +38,7 @@ class EventReceiver:
         self.lock = threading.RLock()
         self.halt = threading.Event()
         self.thread = None
+        self.observers = []
         self.state = dict(state='stopped', account='', last_event_at=0, last_message_at=0, connected_at=0,
                           note='事件接收尚未启动。')
         self.log = logging.getLogger('tulpa.onebot.events')
@@ -45,6 +46,21 @@ class EventReceiver:
     def status(self):
         with self.lock:
             return dict(self.state)
+
+    def subscribe(self, callback):
+        with self.lock:
+            if callback not in self.observers:
+                self.observers.append(callback)
+
+    def dispatch(self, event):
+        self.on_event(event)
+        with self.lock:
+            observers = tuple(self.observers)
+        for callback in observers:
+            try:
+                callback(event)
+            except Exception:
+                self.log.warning('event observer failed')
 
     def update(self, state, note, **fields):
         with self.lock:
@@ -131,7 +147,7 @@ class EventReceiver:
                                     'SnowLuma 实时事件已连接。' if healthy else 'SnowLuma 已连接，但 QQ 接收链路不健康。',
                                     last_event_at=time.time())
                         if healthy:
-                            self.on_event(event)
+                            self.dispatch(event)
             except InvalidStatus:
                 self.update('auth_error', '事件连接被拒绝，请核对 WebSocket 地址及其独立 Token。', account='')
             except Exception:

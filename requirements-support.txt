@@ -1,0 +1,10 @@
+# Standalone Linux support service; no Windows readers, desktop UI or Gradio.
+fastapi==0.141.1
+uvicorn==0.53.0
+httpx==0.28.1
+jieba==0.42.1
+python-dotenv==1.2.3
+mcp==1.26.0
+websockets==15.0.1
+Pillow==12.3.0
+pypdf==6.19.0

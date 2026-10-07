@@ -8,14 +8,32 @@
 
 Tulpa 是面向 Windows 的个人通信工作台。聊天和资料保存在本机，Agent 在你选择的平台、会话和时间范围内检索，按需读取图片、语音和文件。桌面版解压即用；浏览器入口保留用于开发与测试。
 
+**MCP 轻量版：把 QQ / 微信资料接入你正在使用的 Agent。**
+
+如果你已经在使用 Codex、Claude Code、DeepSeek Harness、Antigravity 或 WorkBuddy，可以选择 MCP 轻量版。Tulpa 负责导入与实时读取、检索、原文件下载和访问授权，外部 Agent 负责理解、分析与执行任务。轻量版不包含内置 Harness，无需在 Tulpa 中另配模型 API Key；模型由外部 Agent 提供。完整版也包含同样的 MCP 能力。
+
+目前已在以下客户端完成实际接入测试：
+
+| Agent | 已实测能力 |
+| --- | --- |
+| <img src="doc/assets/agents/openai.png" width="28" height="28" alt="OpenAI"> **[Codex](https://openai.com/codex/)** | QQ / 微信查询、图片读取、文件下载、PDF 与语音内容读取；授权测试群发言、修改群名并恢复 |
+| <img src="doc/assets/agents/claude.png" width="28" height="28" alt="Claude Code"> **[Claude Code](doc/AGENT_SETUP.md#claude-code)** | 已成功接入，用户本机确认功能正常；使用原生 HTTP MCP 与 Bearer Token，无需额外桥接 |
+| <img src="doc/assets/agents/deepseek.png" width="28" height="28" alt="DeepSeek"> **[DeepSeek Harness](doc/DEEPSEEK_MCP.md)** | QQ / 微信查询、图片与文件读取、OneBot 群资料；授权测试群发言、修改群名并恢复 |
+| <img src="doc/assets/agents/antigravity.svg" width="28" height="28" alt="Google Antigravity"> **[Google Antigravity](https://antigravity.google/)** | 工具发现、会话与消息查询、图片理解；本次验收仅开放只读权限，尚未验证持续群聊、发送与群管理（理论上可以） |
+| <img src="doc/assets/agents/workbuddy.png" width="28" height="28" alt="WorkBuddy"> **[WorkBuddy](doc/AGENT_SETUP.md#workbuddy)** | 已接入并由用户确认功能跑通；本机调用记录覆盖消息与图片读取、文件下载、OneBot 群资料、群聊目录与人格发现 |
+
+连接 OneBot 并授予相应权限后，MCP 还可提供 QQ 发送、群管理，以及使用自定义人格的持续群聊和表情包互动。不同客户端的工具审批与持续运行机制各有差异，接入实测范围以上表为准。
+
+[Agent 配置教程](doc/AGENT_SETUP.md) · [MCP 能力与权限](doc/MCP.md) · [轻量版说明](doc/MCP_LITE.md) · [持续群聊与人格](doc/MCP_CHAT.md) · [验证记录](doc/VALIDATION.md)
+
 ## 开始使用
 
-0.5.1 同时提供两个版本，使用相同的 QQ / 微信读取器和 MCP 权限机制：
+0.5.2 同时提供两个版本，使用相同的 QQ / 微信读取器和 MCP 权限机制：
 
 | 下载包 | 适合谁 | 包含内容 |
 | --- | --- | --- |
-| `Tulpa-0.5.1-win-x64.zip` 完整版 | 在 Tulpa 内直接聊天、回复、使用记忆和工作区 | 内置 Harness、MCP、本地 OCR / 语音 / Office 解析和固定 WebView2 |
-| `Tulpa-MCP-0.5.1-win-x64.zip` 轻量版 | 使用 Codex、DeepSeek Harness 等外部 Agent | 导入、实时读取、聊天浏览、原文件下载、OneBot 和 MCP；语音模型按需安装，使用系统 WebView2 |
+| `Tulpa-0.5.2-win-x64.zip` 完整版 | 在 Tulpa 内直接聊天、回复、使用记忆和工作区 | 内置 Harness、MCP、本地 OCR / 语音 / Office 解析和固定 WebView2 |
+| `Tulpa-MCP-0.5.2-win-x64.zip` 轻量版 | 使用 Codex、Claude Code、DeepSeek Harness、Antigravity、WorkBuddy 等外部 Agent | 导入、实时读取、聊天浏览、原文件下载、OneBot 和 MCP；语音模型按需安装，使用系统 WebView2 |
 
 1. 在 [Releases](https://github.com/fumingyang2004/Tulpa/releases/latest) 选择一个 ZIP。GitHub 自动提供的 `Source code` 不是桌面安装包。两个版本请放在各自的文件夹中，不要混合覆盖程序文件。
 2. **完整解压**到有写入权限的本地目录，打开 `Tulpa/Tulpa.exe`。不要单独取出 EXE，也不要直接从压缩包内运行。
@@ -40,7 +58,7 @@ Tulpa 是面向 Windows 的个人通信工作台。聊天和资料保存在本�
 | 工作区 | 围绕一个目标持续调查，产出 Markdown / CSV，查看差异、审批修改、保留版本并回退 |
 | 证据集合 | 组织消息、媒体、文件片段及群资料的引用，保留来源 |
 | QQ 扩展 | 连接 OneBot 后按需读公告、精华和群文件；批准回复发送；按账号权限管理群 |
-| 持续群聊与表情包（MCP） | 外部 Agent 根据人格持续接收 OneBot 群消息，按授权看图、发送/收藏表情；可随时停止，与历史调查分开运行 |
+| 持续群聊与表情包（MCP） | 小鲸鱼预设或自定义 Markdown 人格，热发现；独立接收 OneBot 消息，按语境接话、看图和选择表情，可随时停止 |
 | 外部 Agent / MCP | 让 Codex 等客户端直接查询授权的聊天与文件，复用本地检索；无需 Tulpa 模型配置；可为连接持续授权 QQ 发送和群管理 |
 | ASMRTranslator 群助手（完整版） | 用项目 README、前后端代码和所选群文档自动技术答疑、收集问题；每日固定5元模型额度，可停止，见 [使用说明](doc/ASMR_SUPPORT.md) |
 
@@ -50,7 +68,9 @@ Tulpa 是面向 Windows 的个人通信工作台。聊天和资料保存在本�
 
 需要后台提供 MCP 时，可勾选关闭窗口后留在托盘。托盘菜单支持打开窗口、开机启动（默认关闭）和彻底退出。只有彻底退出才会停止托盘模式中的服务；移动程序目录后应重新设置开机启动。
 
-轻量版的文件链路是 **OneBot 下载原文件 → 返回本机路径 → 外部 Agent 用自己的工具读取**，不要求先解析 Office 文件。使用方式见 [MCP 轻量版](doc/MCP_LITE.md)，版本变化见 [0.5.1 发布说明](doc/releases/0.5.1.md)。
+轻量版的文件链路是 **OneBot 下载原文件 → 返回本机路径 → 外部 Agent 用自己的工具读取**，不要求先解析 Office 文件。使用方式见 [MCP 轻量版](doc/MCP_LITE.md)，版本变化见 [0.5.2 发布说明](doc/releases/0.5.2.md)。
+
+持续群聊可直接对外部 Agent 说：**“用小鲸鱼预设在测试群持续聊天，直到我停止。”** 先在连接中授予持续群聊与发送权限，并配置 OneBot 实时事件。自定义人格放入当前安装目录的 `chatlocal/prompts/mcp_chat/`；新增或修改后让 Agent 列出人格即可，无需重启。具体步骤见 [水群人格与接话](doc/MCP_CHAT.md)。
 
 ## 发送和群管理
 
@@ -98,7 +118,7 @@ cd Tulpa
 | 查询与多模态资料 | [调查和证据](doc/INVESTIGATION.md)、[文件](doc/ARTIFACTS.md)、[语音](doc/VOICE.md) |
 | 持续工作 | [工作区](doc/WORKSPACES.md)、[行为记忆](doc/TULPA.md) |
 | QQ 扩展 | [回复助手](doc/REPLY_COPILOT.md)、[群管理](doc/GROUP_MANAGEMENT.md)、[OneBot 教程](doc/SNOWLUMA_SETUP.md) |
-| 外部 Agent 接入 | [MCP 教程与实现边界](doc/MCP.md)、[轻量版](doc/MCP_LITE.md)、[DeepSeek Harness](doc/DEEPSEEK_MCP.md) |
+| 外部 Agent 接入 | [Codex / Claude Code / DSH / Antigravity / WorkBuddy 配置教程](doc/AGENT_SETUP.md)、[MCP 能力与权限](doc/MCP.md)、[轻量版](doc/MCP_LITE.md) |
 | 开发与验证 | [贡献指南](doc/CONTRIBUTING.md)、[验证说明](doc/VALIDATION.md)、[安全报告](doc/SECURITY.md) |
 
 ## Linux 群助手部署
@@ -110,3 +130,8 @@ cd Tulpa
 ## 开源许可
 
 Tulpa 自有代码采用 [MIT License](LICENSE)。第三方组件、模型和客户端遵循各自许可证，详见 [THIRD_PARTY.md](doc/THIRD_PARTY.md)。本项目不是腾讯官方产品，与 QQ、微信及所用模型服务商没有隶属关系。
+
+## 致谢
+
+- 感谢 [qq-bridge](https://github.com/Derpyu520/qq-bridge) 对群聊交互、提示词组织和表情包使用的探索。Tulpa 的 MCP 持续群聊借鉴了其设计，小鲸鱼人格基于其角色卡并由 Tulpa 维护者按需修改；来源与 MIT 许可保留在项目中。
+- 感谢 [SnowLuma](https://github.com/SnowLuma/SnowLuma) 提供 QQ / OneBot 接入能力，支持 Tulpa 的实时事件、消息发送和群资料功能。SnowLuma 是独立项目，需另行安装并遵循其许可。
